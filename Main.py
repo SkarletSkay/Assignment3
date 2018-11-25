@@ -1,4 +1,7 @@
-import Tables.DatabaseManager as DatabaseManager
+import Tables
 
-conn = DatabaseManager.create_connection()
+conn = Tables.create_connection()
+
+car_types = Tables.CarTypesTable(conn)
+
 conn.close()
