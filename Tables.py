@@ -82,7 +82,7 @@ class PartCarTable:
                      " UNIQUE(" + self.PART_TYPE_ID_COLUMN + "," + self.CAR_TYPE_ID_COLUMN + ")")
 
     def add_new_part_car(self, connection, part_type, car_type):
-        insert(connection, self.TABLE_NAME, "NULL, '" + part_type + "', '" + car_type + "'")
+        insert(connection, self.TABLE_NAME, "'" + str(part_type) + "', '" + str(car_type) + "'")
 
 
 class PartProviderTable:
@@ -171,7 +171,7 @@ class ProvidersTable:
     def __init__(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
-                     self.NAME_COLUMN + "TEXT, " +
+                     self.NAME_COLUMN + " TEXT, " +
                      self.LOCATION_COLUMN + " TEXT, " +
                      self.PHONE_COLUMN + " TEXT")
 
@@ -300,7 +300,7 @@ class OrdersTable:
                      self.INIT_LOCATION_COLUMN + " TEXT, " +
                      self.DESTINATION_COLUMN + " TEXT, " +
                      self.COST_COLUMN + " INTEGER, " +
-                     self.DISTANCE_COLUMN + "INTEGER," +
+                     self.DISTANCE_COLUMN + " INTEGER," +
                      " FOREIGN KEY (" + self.CUSTOMER_ID_COLUMN +
                      ") REFERENCES " + CustomersTable.TABLE_NAME + "(" + CustomersTable.ID_COLUMN + ")," +
                      " FOREIGN KEY (" + self.CAR_ID_COLUMN +
@@ -332,7 +332,7 @@ class PaymentsTable:
                      self.DATE_COLUMN + " REAL, " +
                      self.START_TIME_COLUMN + " INTEGER, " +
                      self.END_TIME_COLUMN + " INTEGER, " +
-                     self.TOTAL_SUM_COLUMN + "INTEGER, " +
+                     self.TOTAL_SUM_COLUMN + " INTEGER, " +
                      " FOREIGN KEY (" + self.CUSTOMER_ID_COLUMN +
                      ") REFERENCES " + CustomersTable.TABLE_NAME + "(" + CustomersTable.ID_COLUMN + ")," +
                      " FOREIGN KEY (" + self.ORDER_ID_COLUMN +
@@ -362,7 +362,7 @@ class ChargesTable:
                      self.DATE_COLUMN + " REAL, " +
                      self.START_TIME_COLUMN + " INTEGER, " +
                      self.END_TIME_COLUMN + " INTEGER, " +
-                     self.COST_COLUMN + "INTEGER, " +
+                     self.COST_COLUMN + " INTEGER, " +
                      " FOREIGN KEY (" + self.CAR_ID_COLUMN +
                      ") REFERENCES " + CarsTable.TABLE_NAME + "(" + CarsTable.ID_COLUMN + ")," +
                      " FOREIGN KEY (" + self.STATION_ID_COLUMN +
@@ -394,7 +394,7 @@ class RepairsTable:
                      self.DATE_COLUMN + " REAL, " +
                      self.START_TIME_COLUMN + " INTEGER, " +
                      self.END_TIME_COLUMN + " INTEGER, " +
-                     self.COST_COLUMN + "INTEGER, " +
+                     self.COST_COLUMN + " INTEGER, " +
                      " FOREIGN KEY (" + self.CAR_ID_COLUMN +
                      ") REFERENCES " + CarsTable.TABLE_NAME + "(" + CarsTable.ID_COLUMN + ")," +
                      " FOREIGN KEY (" + self.WORKSHOP_ID_COLUMN +
@@ -429,7 +429,7 @@ class OrderPartsTable:
                      self.DATE_COLUMN + " REAL, " +
                      self.START_TIME_COLUMN + " INTEGER, " +
                      self.END_TIME_COLUMN + " INTEGER, " +
-                     self.AMOUNT_COLUMN + "INTEGER, " +
+                     self.AMOUNT_COLUMN + " INTEGER, " +
                      " FOREIGN KEY (" + self.PROVIDER_ID_COLUMN +
                      ") REFERENCES " + ProvidersTable.TABLE_NAME + "(" + ProvidersTable.ID_COLUMN + ")," +
                      " FOREIGN KEY (" + self.WORKSHOP_ID_COLUMN +
