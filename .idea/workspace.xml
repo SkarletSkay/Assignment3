@@ -11,46 +11,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Tables.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Tables.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tables.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="853">
-              <caret line="441" column="50" lean-forward="false" selection-start-line="441" selection-start-column="50" selection-end-line="441" selection-end-column="50" />
+            <state relative-caret-position="-296">
+              <caret line="140" column="36" lean-forward="false" selection-start-line="140" selection-start-column="36" selection-end-line="140" selection-end-column="36" />
               <folding>
-                <element signature="e#697#1094#0" expanded="false" />
-                <element signature="e#1123#1529#0" expanded="false" />
-                <element signature="e#1558#1964#0" expanded="false" />
-                <element signature="e#1991#2882#0" expanded="false" />
-                <element signature="e#2914#3943#0" expanded="false" />
-                <element signature="e#3975#5014#0" expanded="false" />
-                <element signature="e#5050#5975#0" expanded="false" />
-                <element signature="e#6011#6444#0" expanded="false" />
-                <element signature="e#6473#7125#0" expanded="false" />
-                <element signature="e#7154#8084#0" expanded="false" />
-                <element signature="e#8108#9265#0" expanded="false" />
-                <element signature="e#9292#10263#0" expanded="false" />
-                <element signature="e#10292#11393#0" expanded="false" />
-                <element signature="e#10600#11075#0" expanded="false" />
+                <element signature="e#761#1158#0" expanded="false" />
+                <element signature="e#1622#2028#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="builtins.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.PyCharmCE2017.3/system/python_stubs/-1387627790/builtins.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="5119" column="12" lean-forward="true" selection-start-line="5119" selection-start-column="12" selection-end-line="5119" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" column="38" lean-forward="false" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
+            <state relative-caret-position="462">
+              <caret line="22" column="32" lean-forward="false" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -69,9 +47,14 @@
     <findStrings>
       <find>TableConstants</find>
       <find>CUSTOMER_TABLE_</find>
+      <find>REFERENCES</find>
+      <find>partca</find>
+      <find>part</find>
     </findStrings>
     <replaceStrings>
       <replace>self</replace>
+      <replace>FOREIGN KEY (</replace>
+      <replace>) REFERENCES</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -93,10 +76,10 @@
         <option value="$PROJECT_DIR$/Tables/CarTypesTable.py" />
         <option value="$PROJECT_DIR$/Tables/CarTypesTableClass.py" />
         <option value="$PROJECT_DIR$/Tables/Tables.py" />
-        <option value="$PROJECT_DIR$/Main.py" />
         <option value="$PROJECT_DIR$/Tables312/CarsTable.py" />
         <option value="$PROJECT_DIR$/Tables312/CustomersTable.py" />
         <option value="$PROJECT_DIR$/Tables.py" />
+        <option value="$PROJECT_DIR$/Main.py" />
       </list>
     </option>
   </component>
@@ -210,7 +193,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295838" sideWeight="0.49814913" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295838" sideWeight="0.49814913" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -363,34 +346,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main.py">
+    <entry file="file://$PROJECT_DIR$/Tables.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="38" lean-forward="false" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
-          <folding />
+        <state relative-caret-position="-296">
+          <caret line="140" column="36" lean-forward="false" selection-start-line="140" selection-start-column="36" selection-end-line="140" selection-end-column="36" />
+          <folding>
+            <element signature="e#761#1158#0" expanded="false" />
+            <element signature="e#1622#2028#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tables.py">
+    <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="853">
-          <caret line="441" column="50" lean-forward="false" selection-start-line="441" selection-start-column="50" selection-end-line="441" selection-end-column="50" />
-          <folding>
-            <element signature="e#697#1094#0" expanded="false" />
-            <element signature="e#1123#1529#0" expanded="false" />
-            <element signature="e#1558#1964#0" expanded="false" />
-            <element signature="e#1991#2882#0" expanded="false" />
-            <element signature="e#2914#3943#0" expanded="false" />
-            <element signature="e#3975#5014#0" expanded="false" />
-            <element signature="e#5050#5975#0" expanded="false" />
-            <element signature="e#6011#6444#0" expanded="false" />
-            <element signature="e#6473#7125#0" expanded="false" />
-            <element signature="e#7154#8084#0" expanded="false" />
-            <element signature="e#8108#9265#0" expanded="false" />
-            <element signature="e#9292#10263#0" expanded="false" />
-            <element signature="e#10292#11393#0" expanded="false" />
-            <element signature="e#10600#11075#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="462">
+          <caret line="22" column="32" lean-forward="false" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>

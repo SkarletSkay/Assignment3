@@ -6,6 +6,7 @@ DATABASE_NAME = "Database"
 def create_connection():
     try:
         connection = sqlite3.connect(DATABASE_NAME + ".db")
+        sqlite3.complete_statement("PRAGMA foreign_keys = ON;")
         return connection
     except sqlite3.Error as e:
         print(e)
@@ -74,10 +75,10 @@ class PartCarTable:
     def __init__(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.PART_TYPE_ID_COLUMN + " INTEGER, " + self.CAR_TYPE_ID_COLUMN + " INTEGER," +
-                     " FOREIGN KEY " + self.PART_TYPE_ID_COLUMN +
-                     " REFERENCES " + PartTypesTable.TABLE_NAME + "(" + PartTypesTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.CAR_TYPE_ID_COLUMN +
-                     " REFERENCES " + CarTypesTable.TABLE_NAME + "(" + CarTypesTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.PART_TYPE_ID_COLUMN +
+                     ") REFERENCES " + PartTypesTable.TABLE_NAME + "(" + PartTypesTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.CAR_TYPE_ID_COLUMN +
+                     ") REFERENCES " + CarTypesTable.TABLE_NAME + "(" + CarTypesTable.ID_COLUMN + ")," +
                      " UNIQUE(" + self.PART_TYPE_ID_COLUMN + "," + self.CAR_TYPE_ID_COLUMN + ")")
 
     def add_new_part_car(self, connection, part_type, car_type):
@@ -95,10 +96,10 @@ class PartProviderTable:
                      self.PART_TYPE_ID_COLUMN + " INTEGER, " +
                      self.PROVIDER_ID_COLUMN + " INTEGER, " +
                      self.COST_COLUMN + " INTEGER," +
-                     " FOREIGN KEY " + self.PART_TYPE_ID_COLUMN +
-                     " REFERENCES " + PartTypesTable.TABLE_NAME + "(" + PartTypesTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.PROVIDER_ID_COLUMN +
-                     " REFERENCES " + ProvidersTable.TABLE_NAME + "(" + ProvidersTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.PART_TYPE_ID_COLUMN +
+                     ") REFERENCES " + PartTypesTable.TABLE_NAME + "(" + PartTypesTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.PROVIDER_ID_COLUMN +
+                     ") REFERENCES " + ProvidersTable.TABLE_NAME + "(" + ProvidersTable.ID_COLUMN + ")," +
                      " UNIQUE(" + self.PART_TYPE_ID_COLUMN + "," + self.PROVIDER_ID_COLUMN + ")")
 
     def add_new_part_provider(self, connection, part_type, provider_type, cost):
@@ -116,10 +117,10 @@ class PartWorkshopTable:
                      self.PART_TYPE_ID_COLUMN + " INTEGER, " +
                      self.WORKSHOP_ID_COLUMN + " INTEGER, " +
                      self.QUANTITY_COLUMN + " INTEGER," +
-                     " FOREIGN KEY " + self.PART_TYPE_ID_COLUMN +
-                     " REFERENCES " + PartTypesTable.TABLE_NAME + "(" + PartTypesTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.WORKSHOP_ID_COLUMN +
-                     " REFERENCES " + WorkshopsTable.TABLE_NAME + "(" + WorkshopsTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.PART_TYPE_ID_COLUMN +
+                     ") REFERENCES " + PartTypesTable.TABLE_NAME + "(" + PartTypesTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.WORKSHOP_ID_COLUMN +
+                     ") REFERENCES " + WorkshopsTable.TABLE_NAME + "(" + WorkshopsTable.ID_COLUMN + ")," +
                      " UNIQUE(" + self.PART_TYPE_ID_COLUMN + "," + self.WORKSHOP_ID_COLUMN + ")")
 
     def add_new_part_workshop(self, connection, part_type, workshop, quantity):
@@ -135,10 +136,10 @@ class ProviderWorkshopTable:
         create_table(connection, self.TABLE_NAME,
                      self.PROVIDER_ID_COLUMN + " INTEGER, " +
                      self.WORKSHOP_ID_COLUMN + " INTEGER," +
-                     " FOREIGN KEY " + self.PROVIDER_ID_COLUMN +
-                     " REFERENCES " + ProvidersTable.TABLE_NAME + "(" + ProvidersTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.WORKSHOP_ID_COLUMN +
-                     " REFERENCES " + WorkshopsTable.TABLE_NAME + "(" + WorkshopsTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.PROVIDER_ID_COLUMN +
+                     ") REFERENCES " + ProvidersTable.TABLE_NAME + "(" + ProvidersTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.WORKSHOP_ID_COLUMN +
+                     ") REFERENCES " + WorkshopsTable.TABLE_NAME + "(" + WorkshopsTable.ID_COLUMN + ")," +
                      " UNIQUE(" + self.PROVIDER_ID_COLUMN + "," + self.WORKSHOP_ID_COLUMN + ")")
 
     def add_new_provider_workshop(self, connection, provider, workshop):
@@ -212,14 +213,14 @@ class CarsTable:
     def __init__(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
-                     self.PLUG_TYPE_ID_COLUMN + " INTEGER," +
-                     self.CAR_TYPE_ID_COLUMN + " INTEGER," +
+                     self.PLUG_TYPE_ID_COLUMN + " INTEGER, " +
+                     self.CAR_TYPE_ID_COLUMN + " INTEGER, " +
                      self.COLOUR_COLUMN + " TEXT, " +
                      self.PLATE_NUMBER_COLUMN + " TEXT," +
-                     " FOREIGN KEY " + self.PLUG_TYPE_ID_COLUMN +
-                     " REFERENCES " + PlugTypesTable.TABLE_NAME + "(" + PlugTypesTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.CAR_TYPE_ID_COLUMN +
-                     " REFERENCES " + CarTypesTable.TABLE_NAME + "(" + CarTypesTable.ID_COLUMN + ")")
+                     " FOREIGN KEY (" + self.PLUG_TYPE_ID_COLUMN +
+                     ") REFERENCES " + PlugTypesTable.TABLE_NAME + "(" + PlugTypesTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.CAR_TYPE_ID_COLUMN +
+                     ") REFERENCES " + CarTypesTable.TABLE_NAME + "(" + CarTypesTable.ID_COLUMN + ")")
 
     def add_new_car(self, connection, plug_type_id, car_type_id, colour, plate_number):
         insert(connection, self.TABLE_NAME,
@@ -230,17 +231,17 @@ class SocketsTable:
     TABLE_NAME = "Sockets"
     ID_COLUMN = "socket_id"
     PLUG_TYPE_ID_COLUMN = "plug_type_id"
-    CHARGING_STATION_ID = "charging_station_id"
+    CHARGING_STATION_ID = "uid"
 
     def __init__(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
-                     self.PLUG_TYPE_ID_COLUMN + "INTEGER, " +
-                     self.CHARGING_STATION_ID + "INTEGER, " +
-                     " FOREIGN KEY " + self.PLUG_TYPE_ID_COLUMN +
-                     " REFERENCES " + PlugTypesTable.TABLE_NAME + "(" + PlugTypesTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.CHARGING_STATION_ID +
-                     " REFERENCES " + ChargingStationsTable.TABLE_NAME + "(" + ChargingStationsTable.ID_COLUMN + ")")
+                     self.PLUG_TYPE_ID_COLUMN + " INTEGER, " +
+                     self.CHARGING_STATION_ID + " INTEGER, " +
+                     " FOREIGN KEY (" + self.PLUG_TYPE_ID_COLUMN +
+                     ") REFERENCES " + PlugTypesTable.TABLE_NAME + "(" + PlugTypesTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.CHARGING_STATION_ID +
+                     ") REFERENCES " + ChargingStationsTable.TABLE_NAME + "(" + ChargingStationsTable.ID_COLUMN + ")")
 
     def add_new_socket(self, connection, plug_type_id, charging_station_id):
         insert(connection, self.TABLE_NAME,
@@ -300,10 +301,10 @@ class OrdersTable:
                      self.DESTINATION_COLUMN + " TEXT, " +
                      self.COST_COLUMN + " INTEGER, " +
                      self.DISTANCE_COLUMN + "INTEGER," +
-                     " FOREIGN KEY " + self.CUSTOMER_ID_COLUMN +
-                     " REFERENCES " + CustomersTable.TABLE_NAME + "(" + CustomersTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.CAR_ID_COLUMN +
-                     " REFERENCES " + CarsTable.TABLE_NAME + "(" + CarsTable.ID_COLUMN + ")"
+                     " FOREIGN KEY (" + self.CUSTOMER_ID_COLUMN +
+                     ") REFERENCES " + CustomersTable.TABLE_NAME + "(" + CustomersTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.CAR_ID_COLUMN +
+                     ") REFERENCES " + CarsTable.TABLE_NAME + "(" + CarsTable.ID_COLUMN + ")"
                      )
 
     def add_new_order(self, connection, customer_id, car_id, date, start_time, end_time, init_location, destination,
@@ -332,10 +333,10 @@ class PaymentsTable:
                      self.START_TIME_COLUMN + " INTEGER, " +
                      self.END_TIME_COLUMN + " INTEGER, " +
                      self.TOTAL_SUM_COLUMN + "INTEGER, " +
-                     " FOREIGN KEY " + self.CUSTOMER_ID_COLUMN +
-                     " REFERENCES " + CustomersTable.TABLE_NAME + "(" + CustomersTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.ORDER_ID_COLUMN +
-                     " REFERENCES " + OrdersTable.TABLE_NAME + "(" + OrdersTable.ID_COLUMN + ")"
+                     " FOREIGN KEY (" + self.CUSTOMER_ID_COLUMN +
+                     ") REFERENCES " + CustomersTable.TABLE_NAME + "(" + CustomersTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.ORDER_ID_COLUMN +
+                     ") REFERENCES " + OrdersTable.TABLE_NAME + "(" + OrdersTable.ID_COLUMN + ")"
                      )
 
     def add_new_payments(self, connection, customer_id, order_id, date, start_time, end_time, total_sum):
@@ -362,10 +363,10 @@ class ChargesTable:
                      self.START_TIME_COLUMN + " INTEGER, " +
                      self.END_TIME_COLUMN + " INTEGER, " +
                      self.COST_COLUMN + "INTEGER, " +
-                     " FOREIGN KEY " + self.CAR_ID_COLUMN +
-                     " REFERENCES " + CarsTable.TABLE_NAME + "(" + CarsTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.STATION_ID_COLUMN +
-                     " REFERENCES " + ChargingStationsTable.TABLE_NAME + "(" + ChargingStationsTable.ID_COLUMN + ")"
+                     " FOREIGN KEY (" + self.CAR_ID_COLUMN +
+                     ") REFERENCES " + CarsTable.TABLE_NAME + "(" + CarsTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.STATION_ID_COLUMN +
+                     ") REFERENCES " + ChargingStationsTable.TABLE_NAME + "(" + ChargingStationsTable.ID_COLUMN + ")"
                      )
 
     def add_new_charge(self, connection, car_id, station_id, date, start_time, end_time, cost):
@@ -394,12 +395,12 @@ class RepairsTable:
                      self.START_TIME_COLUMN + " INTEGER, " +
                      self.END_TIME_COLUMN + " INTEGER, " +
                      self.COST_COLUMN + "INTEGER, " +
-                     " FOREIGN KEY " + self.CAR_ID_COLUMN +
-                     " REFERENCES " + CarsTable.TABLE_NAME + "(" + CarsTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.WORKSHOP_ID_COLUMN +
-                     " REFERENCES " + WorkshopsTable.TABLE_NAME + "(" + WorkshopsTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.PART_TYPE_ID_COLUMN +
-                     " REFERENCES " + PartTypesTable.TABLE_NAME + "(" + PartTypesTable.ID_COLUMN + ")"
+                     " FOREIGN KEY (" + self.CAR_ID_COLUMN +
+                     ") REFERENCES " + CarsTable.TABLE_NAME + "(" + CarsTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.WORKSHOP_ID_COLUMN +
+                     ") REFERENCES " + WorkshopsTable.TABLE_NAME + "(" + WorkshopsTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.PART_TYPE_ID_COLUMN +
+                     ") REFERENCES " + PartTypesTable.TABLE_NAME + "(" + PartTypesTable.ID_COLUMN + ")"
                      )
 
     def add_new_repair(self, connection, car_id, wid, part_type_id, date, start_time, end_time, cost):
@@ -429,12 +430,12 @@ class OrderPartsTable:
                      self.START_TIME_COLUMN + " INTEGER, " +
                      self.END_TIME_COLUMN + " INTEGER, " +
                      self.AMOUNT_COLUMN + "INTEGER, " +
-                     " FOREIGN KEY " + self.PROVIDER_ID_COLUMN +
-                     " REFERENCES " + ProvidersTable.TABLE_NAME + "(" + ProvidersTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.WORKSHOP_ID_COLUMN +
-                     " REFERENCES " + WorkshopsTable.TABLE_NAME + "(" + WorkshopsTable.ID_COLUMN + ")," +
-                     " FOREIGN KEY " + self.PART_TYPE_ID_COLUMN +
-                     " REFERENCES " + PartTypesTable.TABLE_NAME + "(" + PartTypesTable.ID_COLUMN + ")"
+                     " FOREIGN KEY (" + self.PROVIDER_ID_COLUMN +
+                     ") REFERENCES " + ProvidersTable.TABLE_NAME + "(" + ProvidersTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.WORKSHOP_ID_COLUMN +
+                     ") REFERENCES " + WorkshopsTable.TABLE_NAME + "(" + WorkshopsTable.ID_COLUMN + ")," +
+                     " FOREIGN KEY (" + self.PART_TYPE_ID_COLUMN +
+                     ") REFERENCES " + PartTypesTable.TABLE_NAME + "(" + PartTypesTable.ID_COLUMN + ")"
                      )
 
     def add_new_order_parts(self, connection, provider_id, wid, part_type_id, date, start_time, end_time, amount):
