@@ -28,6 +28,15 @@ def insert(connection, table_name, data):
     connection.commit()
 
 
+def get_number_of_rows(connection, table_name):
+    return connection.cursor().execute("SELECT COUNT(*) FROM " + table_name).fetchone()[0]
+
+
+def drop(connection, table_name):
+    connection.cursor().execute("DROP TABLE IF EXISTS " + table_name)
+    connection.commit()
+
+
 class CarTypesTable:
     TABLE_NAME = "CarTypes"
     ID_COLUMN = "car_type_id"
@@ -132,7 +141,8 @@ class PartWorkshopTable:
                      ") REFERENCES " + PartTypesTable.TABLE_NAME + "(" + PartTypesTable.ID_COLUMN + ")," +
                      " FOREIGN KEY (" + PartWorkshopTable.WORKSHOP_ID_COLUMN +
                      ") REFERENCES " + WorkshopsTable.TABLE_NAME + "(" + WorkshopsTable.ID_COLUMN + ")," +
-                     " UNIQUE(" + PartWorkshopTable.PART_TYPE_ID_COLUMN + "," + PartWorkshopTable.WORKSHOP_ID_COLUMN + ")")
+                     " UNIQUE(" + PartWorkshopTable.PART_TYPE_ID_COLUMN + "," +
+                     PartWorkshopTable.WORKSHOP_ID_COLUMN + ")")
 
     @staticmethod 
     def add_new_part_workshop(connection, part_type, workshop, quantity):
@@ -153,7 +163,8 @@ class ProviderWorkshopTable:
                      ") REFERENCES " + ProvidersTable.TABLE_NAME + "(" + ProvidersTable.ID_COLUMN + ")," +
                      " FOREIGN KEY (" + ProviderWorkshopTable.WORKSHOP_ID_COLUMN +
                      ") REFERENCES " + WorkshopsTable.TABLE_NAME + "(" + WorkshopsTable.ID_COLUMN + ")," +
-                     " UNIQUE(" + ProviderWorkshopTable.PROVIDER_ID_COLUMN + "," + ProviderWorkshopTable.WORKSHOP_ID_COLUMN + ")")
+                     " UNIQUE(" + ProviderWorkshopTable.PROVIDER_ID_COLUMN + "," +
+                     ProviderWorkshopTable.WORKSHOP_ID_COLUMN + ")")
 
     @staticmethod 
     def add_new_provider_workshop(connection, provider, workshop):
@@ -212,7 +223,8 @@ class WorkshopsTable:
                      WorkshopsTable.LOCATION_COLUMN + " TEXT, " +
                      WorkshopsTable.OPEN_TIME_COLUMN + " INTEGER, " +
                      WorkshopsTable.CLOSE_TIME_COLUMN + " INTEGER, " +
-                     "CHECK (" + WorkshopsTable.OPEN_TIME_COLUMN + " >= 0 AND " + WorkshopsTable.OPEN_TIME_COLUMN + " < 23 AND " +
+                     "CHECK (" + WorkshopsTable.OPEN_TIME_COLUMN + " >= 0 AND " +
+                     WorkshopsTable.OPEN_TIME_COLUMN + " < 23 AND " +
                      WorkshopsTable.CLOSE_TIME_COLUMN + " >= 0 AND " +
                      WorkshopsTable.CLOSE_TIME_COLUMN + " < 23)")
 
@@ -478,3 +490,4 @@ class OrderPartsTable:
         insert(connection, OrderPartsTable.TABLE_NAME,
                provider_id + ", " + wid + ", " + part_type_id + ", " + date + ", " +
                start_time + ", " + end_time + ", " + amount)
+
