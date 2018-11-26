@@ -159,12 +159,12 @@ def populate_orders(conn, amount):
         t = rd.randint(1, 21)
         st_time = create_time(0, t)
         end_time = create_time(t+1, 23)
-        day = rd.randint(1, 28)
+        day = rd.randint(21, 25)
         if day < 10:
             date_day = "0" + str(day)
         else:
             date_day = str(day)
-        month = rd.randint(1, 12)
+        month = rd.randint(11, 11)
         if month < 10:
             date_month = "0" + str(month)
         else:
@@ -185,12 +185,12 @@ def populate_payments(conn, amount):
         t = rd.randint(1, 21)
         st_time = create_time(0, t)
         end_time = create_time(t + 1, 23)
-        day = rd.randint(1, 28)
+        day = rd.randint(21, 25)
         if day < 10:
             date_day = "0" + str(day)
         else:
             date_day = str(day)
-        month = rd.randint(1, 12)
+        month = rd.randint(11, 11)
         if month < 10:
             date_month = "0" + str(month)
         else:
@@ -208,12 +208,12 @@ def populate_charges(conn, amount):
         t = rd.randint(1, 21)
         st_time = create_time(0, t)
         end_time = create_time(t + 1, 23)
-        day = rd.randint(1, 28)
+        day = rd.randint(21, 25)
         if day < 10:
             date_day = "0" + str(day)
         else:
             date_day = str(day)
-        month = rd.randint(1, 12)
+        month = rd.randint(11, 11)
         if month < 10:
             date_month = "0" + str(month)
         else:
@@ -231,12 +231,12 @@ def populate_repairs(conn, amount):
         t = rd.randint(1, 21)
         st_time = create_time(0, t)
         end_time = create_time(t + 1, 23)
-        day = rd.randint(1, 28)
+        day = rd.randint(21, 25)
         if day < 10:
             date_day = "0" + str(day)
         else:
             date_day = str(day)
-        month = rd.randint(1, 12)
+        month = rd.randint(11, 11)
         if month < 10:
             date_month = "0" + str(month)
         else:
@@ -254,12 +254,12 @@ def populate_order_parts(conn, amount):
         t = rd.randint(1, 21)
         st_time = create_time(0, t)
         end_time = create_time(t + 1, 23)
-        day = rd.randint(1, 28)
+        day = rd.randint(21, 25)
         if day < 10:
             date_day = "0" + str(day)
         else:
             date_day = str(day)
-        month = rd.randint(1, 12)
+        month = rd.randint(11, 11)
         if month < 10:
             date_month = "0" + str(month)
         else:

@@ -16,8 +16,9 @@ def raise_frame(frame):
 
 def query1():
     c = conn.cursor()
-    c.execute('SELECT C.car_id, colour, plate_number FROM Orders AS O, Cars AS C WHERE C.colour="red" AND C.plate_number LIKE "AN%" AND O.car_id = C.car_id')
+    c.execute('SELECT C.car_id, C.colour, C.plate_number FROM Orders AS O, Cars AS C WHERE C.colour="Red" AND C.plate_number LIKE "AN%" AND O.car_id = C.car_id')
     all_rows = c.fetchall()
+    print(all_rows)
     answer = 'car_id\tcolour\tplate_number\n'
     for row in all_rows:
         for item in row:
@@ -141,12 +142,16 @@ def query8():
 def query9():
     c = conn.cursor()
     c.execute(
-        'SELECT FROM WHERE ')
+        'SELECT wid,  part_type_id, MAX(avg_use) FROM '
+        '(SELECT wid, part_type_id, AVG(use) AS avg_use FROM'
+        '(SELECT CAST(R.date/7 AS INT) AS week, wid, part_type_id, COUNT(*) AS use FROM Repairs AS R GROUP BY wid, part_type_id, CAST(R.date/7 AS INT)) '
+        'GROUP BY wid, part_type_id)'
+        'GROUP BY wid HAVING MAX(avg_use)')
     all_rows = c.fetchall()
-    answer = 'Customer ID\tFull name\tOrder ID\n'
+    answer = 'Workshop ID\t\tPart Type ID\t\tAmount pet week\n'
     for row in all_rows:
         for item in row:
-            answer += str(item) + '\t'
+            answer += str(item) + '\t\t'
         answer += "\n"
     answer9['text'] = answer
 
