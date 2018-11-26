@@ -44,7 +44,6 @@ def query3():
     c.execute(
         'SELECT DISTINCT car_id FROM Orders AS O WHERE (julianday("now") - O.date)<7.0 AND O.start_time>julianday("06:59:59") AND O.start_time<julianday("10:00:00")')
     all_rows = c.fetchall()
-    print(all_rows)
     answer = 'Morning\tAfternoon\tEvening\n'+str(all_rows[0][0])+'\t'
     c.execute(
         'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7.0 AND O.start_time>julianday("11:59:59") AND O.start_time<julianday("14:00:00")')
@@ -75,11 +74,11 @@ def query5(input):
     c.execute(
         'SELECT car_id,AVG(distance), AVG((end_time-start_time)*86400) FROM Orders AS O WHERE O.date = julianday("' + input + '") GROUP BY car_id')
     all_rows = c.fetchall()
-    answer = 'Car ID\tAverage Distance\tAverage time\n'
+    answer = 'Car ID\t\tAverage Distance\t\tAverage time\n\t\t'
     for row in all_rows:
         for item in row:
-            answer += str(item) + '\t'
-        answer += "\n"
+            answer += str(item) + '\t\t'
+        answer += "\n\t\t"
     answer5['text'] = answer
 
 
@@ -106,7 +105,7 @@ def query6():
     c.execute(
         'SELECT init_location, COUNT(init_location) FROM Orders AS O WHERE O.start_time>julianday("16:59:59") AND O.start_time<julianday("19:00:00") GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
     all_rows = c.fetchall()
-    answer += '\nTop 3 pick up locations in the Evening (5PM-17PM):\nLocation\t\tNumber of orders\n'
+    answer += '\nTop 3 pick up locations in the Evening (5PM-7PM):\nLocation\t\tNumber of orders\n'
     for row in all_rows:
         for item in row:
             answer += str(item) + '\t\t'
@@ -148,11 +147,11 @@ def query9():
         'GROUP BY wid, part_type_id)'
         'GROUP BY wid HAVING MAX(avg_use)')
     all_rows = c.fetchall()
-    answer = 'Workshop ID\t\tPart Type ID\t\tAmount pet week\n'
+    answer = 'Workshop ID\t\tPart Type ID\t\tAmount pet week\n\t\t'
     for row in all_rows:
         for item in row:
-            answer += str(item) + '\t\t'
-        answer += "\n"
+            answer += str(item) + '\t\t\t'
+        answer += "\n\t\t"
     answer9['text'] = answer
 
 
