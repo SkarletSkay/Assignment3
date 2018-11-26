@@ -40,7 +40,20 @@ def query2(input):
 
 
 def query3():
-    answer3['text'] = 'to be done'
+    c = conn.cursor()
+    c.execute(
+        'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7 AND O.start_time>julianday("06:59:59") AND O.end_time<julianday("10:00:00")')
+    all_rows = c.fetchall()
+    answer = 'Morning\tAfternoon\tEvening\n'+str(all_rows[0][0])+'\t'
+    c.execute(
+        'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7 AND O.start_time>julianday("11:59:59") AND O.end_time<julianday("14:00:00")')
+    all_rows = c.fetchall()
+    answer += str(all_rows[0][0])+ '\t'
+    c.execute(
+        'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7 AND O.start_time>julianday("16:59:59") AND O.end_time<julianday("19:00:00")')
+    all_rows = c.fetchall()
+    answer += str(all_rows[0][0])
+    answer3['text'] = answer
 
 
 def query4():
@@ -72,12 +85,12 @@ def query5(input):
 def query6():
     c = conn.cursor()
     c.execute(
-        'SELECT FROM WHERE ')
+        'SELECT init_location, COUNT(init_location) FROM Orders GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
     all_rows = c.fetchall()
-    answer = 'Customer ID\tFull name\tOrder ID\n'
+    answer = 'Location\t\tNumber of orders\n'
     for row in all_rows:
         for item in row:
-            answer += str(item) + '\t'
+            answer += str(item) + '\t\t'
         answer += "\n"
     answer6['text'] = answer
 
@@ -85,25 +98,24 @@ def query6():
 def query7():
     c = conn.cursor()
     c.execute(
-        'SELECT FROM WHERE ')
+        'SELECT car_id, COUNT(car_id)FROM Orders GROUP BY car_id ORDER BY COUNT(car_id) LIMIT round((SELECT COUNT(*) FROM Cars)/10)')
     all_rows = c.fetchall()
-    answer = 'Customer ID\tFull name\tOrder ID\n'
+    answer = 'Car ID\t\tNumber of orders\n'
     for row in all_rows:
         for item in row:
-            answer += str(item) + '\t'
+            answer += str(item) + '\t\t'
         answer += "\n"
     answer7['text'] = answer
 
 
 def query8():
     c = conn.cursor()
-    c.execute(
-        'SELECT FROM WHERE ')
+    c.execute('SELECT customer_id, COUNT(customer_id) FROM Orders AS O, Charges AS CH WHERE O.date = CH.date AND O.car_id = CH.car_id AND (julianday("now") - O.date)<31')
     all_rows = c.fetchall()
-    answer = 'Customer ID\tFull name\tOrder ID\n'
+    answer = 'Customer ID\t\tNUmber of Carges\n'
     for row in all_rows:
         for item in row:
-            answer += str(item) + '\t'
+            answer += str(item) + '\t\t'
         answer += "\n"
     answer8['text'] = answer
 
@@ -124,12 +136,15 @@ def query9():
 def query10():
     c = conn.cursor()
     c.execute(
-        'SELECT FROM WHERE ')
+        'SELECT C.car_type_id, AVG(R.AvgRcost + Ch.AvgCHcost) FROM Cars AS C, '
+        '(SELECT car_id, AVG(Rcost) AS AvgRcost FROM (SELECT car_id, SUM(cost) AS Rcost, Re.date FROM Repairs AS Re GROUP BY car_id, Re.date ) GROUP BY car_id) AS R, '
+        '(SELECT car_id, AVG(CHcost) AS AvgCHcost FROM (SELECT  car_id, SUM(cost) AS CHcost, CHa.date FROM Charges AS CHa GROUP BY car_id, Cha.date) GROUP BY car_id) AS CH '
+        ' WHERE C.car_id = R.car_id AND C.car_id = CH.car_id GROUP BY C.car_type_id ORDER BY AVG(R.AvgRcost + Ch.AvgCHcost) DESC LIMIT 1')
     all_rows = c.fetchall()
-    answer = 'Customer ID\tFull name\tOrder ID\n'
+    answer = 'Car Type ID\t\tTotal cost\n'
     for row in all_rows:
         for item in row:
-            answer += str(item) + '\t'
+            answer += str(item) + '\t\t'
         answer += "\n"
     answer10['text'] = answer
 
