@@ -43,15 +43,16 @@ def query2(input):
 def query3():
     c = conn.cursor()
     c.execute(
-        'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7 AND O.start_time>julianday("06:59:59") AND O.end_time<julianday("10:00:00")')
+        'SELECT DISTINCT car_id FROM Orders AS O WHERE (julianday("now") - O.date)<7.0 AND O.start_time>julianday("06:59:59") AND O.start_time<julianday("10:00:00")')
     all_rows = c.fetchall()
+    print(all_rows)
     answer = 'Morning\tAfternoon\tEvening\n'+str(all_rows[0][0])+'\t'
     c.execute(
-        'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7 AND O.start_time>julianday("11:59:59") AND O.end_time<julianday("14:00:00")')
+        'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7.0 AND O.start_time>julianday("11:59:59") AND O.start_time<julianday("14:00:00")')
     all_rows = c.fetchall()
     answer += str(all_rows[0][0]) + '\t'
     c.execute(
-        'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7 AND O.start_time>julianday("16:59:59") AND O.end_time<julianday("19:00:00")')
+        'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7.0 AND O.start_time>julianday("16:59:59") AND O.start_time<julianday("19:00:00")')
     all_rows = c.fetchall()
     answer += str(all_rows[0][0])
     answer3['text'] = answer
@@ -86,7 +87,7 @@ def query5(input):
 def query6():
     c = conn.cursor()
     c.execute(
-        'SELECT init_location, COUNT(init_location) FROM Orders AS O WHERE O.start_time>julianday("06:59:59") AND O.end_time<julianday("10:00:00") GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
+        'SELECT init_location, COUNT(init_location) FROM Orders AS O WHERE O.start_time>julianday("06:59:59") AND O.start_time<julianday("10:00:00") GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
     all_rows = c.fetchall()
     answer = 'Top 3 pick up locations in the Morning (7AM-10AM):\nLocation\t\tNumber of orders\n'
     for row in all_rows:
@@ -95,7 +96,7 @@ def query6():
         answer += "\n"
 
     c.execute(
-        'SELECT init_location, COUNT(init_location) FROM Orders AS O WHERE O.start_time>julianday("11:59:59") AND O.end_time<julianday("14:00:00") GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
+        'SELECT init_location, COUNT(init_location) FROM Orders AS O WHERE O.start_time>julianday("11:59:59") AND O.start_time<julianday("14:00:00") GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
     all_rows = c.fetchall()
     answer += '\nTop 3 pick up locations in the Afternoon (12PM-2PM):\nLocation\t\tNumber of orders\n'
     for row in all_rows:
@@ -104,7 +105,7 @@ def query6():
         answer += "\n"
 
     c.execute(
-        'SELECT init_location, COUNT(init_location) FROM Orders AS O WHERE O.start_time>julianday("16:59:59") AND O.end_time<julianday("19:00:00") GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
+        'SELECT init_location, COUNT(init_location) FROM Orders AS O WHERE O.start_time>julianday("16:59:59") AND O.start_time<julianday("19:00:00") GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
     all_rows = c.fetchall()
     answer += '\nTop 3 pick up locations in the Evening (5PM-17PM):\nLocation\t\tNumber of orders\n'
     for row in all_rows:
