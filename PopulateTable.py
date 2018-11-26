@@ -177,10 +177,10 @@ def populate_orders(conn, amount):
                                          st_time, end_time, init_loc, dest, dist)
 
 
-def populate_payments(conn, amount):
-    for i in range(1, amount):
+def populate_payments(conn):
+    for i in range(1, Tables.get_number_of_rows(conn, Tables.OrdersTable.TABLE_NAME)):
         customer_id = rd.randint(1, Tables.get_number_of_rows(conn, Tables.CustomersTable.TABLE_NAME))
-        order_id = rd.randint(1, Tables.get_number_of_rows(conn, Tables.OrdersTable.TABLE_NAME))
+        order_id = i
         t = rd.randint(1, 21)
         st_time = create_time(0, t)
         end_time = create_time(t + 1, 23)
@@ -282,9 +282,9 @@ populate_sockets(connection)
 populate_part_provider(connection)
 populate_part_workshop(connection)
 populate_provider_workshop(connection)
-populate_orders(connection, 50)
+populate_orders(connection, 75)
 populate_car_parts(connection)
-populate_payments(connection, 50)
-populate_charges(connection, 50)
-populate_repairs(connection, 50)
-populate_order_parts(connection, 50)
+populate_payments(connection)
+populate_charges(connection, 75)
+populate_repairs(connection, 75)
+populate_order_parts(connection, 75)
