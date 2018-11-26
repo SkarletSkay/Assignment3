@@ -334,8 +334,8 @@ class OrdersTable:
                      OrdersTable.CUSTOMER_ID_COLUMN + " INTEGER, " +
                      OrdersTable.CAR_ID_COLUMN + " INTEGER, " +
                      OrdersTable.DATE_COLUMN + " REAL, " +
-                     OrdersTable.START_TIME_COLUMN + " INTEGER, " +
-                     OrdersTable.END_TIME_COLUMN + " INTEGER, " +
+                     OrdersTable.START_TIME_COLUMN + " REAL, " +
+                     OrdersTable.END_TIME_COLUMN + " REAL, " +
                      OrdersTable.INIT_LOCATION_COLUMN + " TEXT, " +
                      OrdersTable.DESTINATION_COLUMN + " TEXT, " +
                      OrdersTable.COST_COLUMN + " INTEGER, " +
@@ -350,8 +350,9 @@ class OrdersTable:
     def add_new_order(connection, customer_id, car_id, date, start_time, end_time, init_location, destination,
                       cost, distance):
         insert(connection, OrdersTable.TABLE_NAME,
-               customer_id + ", " + car_id + ", " + date + ", " + start_time + ", " + end_time + ", '" +
-               init_location + "', '" + destination + "', " + cost + ", " + distance)
+               "NULL," + str(customer_id) + ", " + str(car_id) +
+               ", julianday('" + date + "'), julianday('" + start_time + "'), julianday('" + end_time + "'), '" +
+               init_location + "', '" + destination + "', " + str(cost) + ", " + str(distance))
 
 
 class PaymentsTable:
@@ -371,8 +372,8 @@ class PaymentsTable:
                      PaymentsTable.CUSTOMER_ID_COLUMN + " INTEGER, " +
                      PaymentsTable.ORDER_ID_COLUMN + " INTEGER, " +
                      PaymentsTable.DATE_COLUMN + " REAL, " +
-                     PaymentsTable.START_TIME_COLUMN + " INTEGER, " +
-                     PaymentsTable.END_TIME_COLUMN + " INTEGER, " +
+                     PaymentsTable.START_TIME_COLUMN + " REAL, " +
+                     PaymentsTable.END_TIME_COLUMN + " REAL, " +
                      PaymentsTable.TOTAL_SUM_COLUMN + " INTEGER, " +
                      " FOREIGN KEY (" + PaymentsTable.CUSTOMER_ID_COLUMN +
                      ") REFERENCES " + CustomersTable.TABLE_NAME + "(" + CustomersTable.ID_COLUMN + ")," +
@@ -383,7 +384,9 @@ class PaymentsTable:
     @staticmethod 
     def add_new_payments(connection, customer_id, order_id, date, start_time, end_time, total_sum):
         insert(connection, PaymentsTable.TABLE_NAME,
-               customer_id + ", " + order_id + ", " + date + ", " + start_time + ", " + end_time + ", " + total_sum)
+               "NULL, " + str(customer_id) + ", " + str(order_id) +
+               ", julianday('" + date + "'), julianday('" + start_time + "'), julianday('" + end_time + "'), " +
+               str(total_sum))
 
 
 class ChargesTable:
@@ -403,8 +406,8 @@ class ChargesTable:
                      ChargesTable.CAR_ID_COLUMN + " INTEGER, " +
                      ChargesTable.STATION_ID_COLUMN + " INTEGER, " +
                      ChargesTable.DATE_COLUMN + " REAL, " +
-                     ChargesTable.START_TIME_COLUMN + " INTEGER, " +
-                     ChargesTable.END_TIME_COLUMN + " INTEGER, " +
+                     ChargesTable.START_TIME_COLUMN + " REAL, " +
+                     ChargesTable.END_TIME_COLUMN + " REAL, " +
                      ChargesTable.COST_COLUMN + " INTEGER, " +
                      " FOREIGN KEY (" + ChargesTable.CAR_ID_COLUMN +
                      ") REFERENCES " + CarsTable.TABLE_NAME + "(" + CarsTable.ID_COLUMN + ")," +
@@ -415,7 +418,9 @@ class ChargesTable:
     @staticmethod 
     def add_new_charge(connection, car_id, station_id, date, start_time, end_time, cost):
         insert(connection, ChargesTable.TABLE_NAME,
-               car_id + ", " + station_id + ", " + date + ", " + start_time + ", " + end_time + ", " + cost)
+               "NULL, " + str(car_id) + ", " + str(station_id) +
+               ", julianday('" + date + "'), julianday('" + start_time + "'), julianday('" + end_time + "'), "
+               + str(cost))
 
 
 class RepairsTable:
@@ -437,8 +442,8 @@ class RepairsTable:
                      RepairsTable.WORKSHOP_ID_COLUMN + " INTEGER, " +
                      RepairsTable.PART_TYPE_ID_COLUMN + " INTEGER," +
                      RepairsTable.DATE_COLUMN + " REAL, " +
-                     RepairsTable.START_TIME_COLUMN + " INTEGER, " +
-                     RepairsTable.END_TIME_COLUMN + " INTEGER, " +
+                     RepairsTable.START_TIME_COLUMN + " REAL, " +
+                     RepairsTable.END_TIME_COLUMN + " REAL, " +
                      RepairsTable.COST_COLUMN + " INTEGER, " +
                      " FOREIGN KEY (" + RepairsTable.CAR_ID_COLUMN +
                      ") REFERENCES " + CarsTable.TABLE_NAME + "(" + CarsTable.ID_COLUMN + ")," +
@@ -451,8 +456,9 @@ class RepairsTable:
     @staticmethod 
     def add_new_repair(connection, car_id, wid, part_type_id, date, start_time, end_time, cost):
         insert(connection, RepairsTable.TABLE_NAME,
-               car_id + ", " + wid + ", " + part_type_id + ", " + date + ", " +
-               start_time + ", " + end_time + ", " + cost)
+               "NULL, " + str(car_id) + ", " + str(wid) + ", " + str(part_type_id) +
+               ", julianday('" + date + "'), julianday('" + start_time + "'), julianday('" + end_time + "'), "
+               + str(cost))
 
 
 class OrderPartsTable:
@@ -474,8 +480,8 @@ class OrderPartsTable:
                      OrderPartsTable.WORKSHOP_ID_COLUMN + " INTEGER, " +
                      OrderPartsTable.PART_TYPE_ID_COLUMN + " INTEGER," +
                      OrderPartsTable.DATE_COLUMN + " REAL, " +
-                     OrderPartsTable.START_TIME_COLUMN + " INTEGER, " +
-                     OrderPartsTable.END_TIME_COLUMN + " INTEGER, " +
+                     OrderPartsTable.START_TIME_COLUMN + " REAL, " +
+                     OrderPartsTable.END_TIME_COLUMN + " REAL, " +
                      OrderPartsTable.AMOUNT_COLUMN + " INTEGER, " +
                      " FOREIGN KEY (" + OrderPartsTable.PROVIDER_ID_COLUMN +
                      ") REFERENCES " + ProvidersTable.TABLE_NAME + "(" + ProvidersTable.ID_COLUMN + ")," +
@@ -488,6 +494,7 @@ class OrderPartsTable:
     @staticmethod 
     def add_new_order_parts(connection, provider_id, wid, part_type_id, date, start_time, end_time, amount):
         insert(connection, OrderPartsTable.TABLE_NAME,
-               provider_id + ", " + wid + ", " + part_type_id + ", " + date + ", " +
-               start_time + ", " + end_time + ", " + amount)
+               "NULL, " + str(provider_id) + ", " + str(wid) + ", " + str(part_type_id) +
+               ", julianday('" + date + "'), julianday('" + start_time + "'), julianday('" + end_time + "'), "
+               + str(amount))
 

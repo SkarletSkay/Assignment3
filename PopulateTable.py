@@ -147,7 +147,7 @@ def populate_provider_workshop(conn):
 
 
 def populate_car_parts(conn):
-    for i in range(1, len(Tables.get_number_of_rows(conn, Tables.CarsTable.TABLE_NAME)) + 1):
+    for i in range(1, Tables.get_number_of_rows(conn, Tables.CarsTable.TABLE_NAME) + 1):
         for j in range(1,  Tables.get_number_of_rows(conn, Tables.PartTypesTable.TABLE_NAME) + 1):
             Tables.PartCarTable.add_new_part_car(conn, j, i)
 
@@ -156,22 +156,23 @@ def populate_orders(conn, amount):
     for i in range(1, amount):
         customer_id = rd.randint(1, Tables.get_number_of_rows(conn, Tables.CustomersTable.TABLE_NAME))
         car_id = rd.randint(1, Tables.get_number_of_rows(conn, Tables.CarsTable.TABLE_NAME))
-        st_time = rd.randint(0, 23)
-        end_time = st_time + rd.randint(1, 3)
+        t = rd.randint(1, 21)
+        st_time = create_time(0, t)
+        end_time = create_time(t+1, 23)
         day = rd.randint(1, 28)
         if day < 10:
             date_day = "0" + str(day)
         else:
             date_day = str(day)
-        month = rd.randint(1,12)
-        if day < 10:
+        month = rd.randint(1, 12)
+        if month < 10:
             date_month = "0" + str(month)
         else:
             date_month = str(month)
-        cost = rd.randint(200,1000)
+        cost = rd.randint(200, 1000)
         init_loc = create_address()
         dest = create_address()
-        dist = rd.randint(50,200)
+        dist = rd.randint(50, 200)
 
         Tables.OrdersTable.add_new_order(conn, customer_id, car_id, "2018-" + date_month + "-" + date_day,
                                          st_time, end_time, init_loc, dest, cost, dist)
@@ -181,37 +182,39 @@ def populate_payments(conn, amount):
     for i in range(1, amount):
         customer_id = rd.randint(1, Tables.get_number_of_rows(conn, Tables.CustomersTable.TABLE_NAME))
         order_id = rd.randint(1, Tables.get_number_of_rows(conn, Tables.OrdersTable.TABLE_NAME))
-        st_time = rd.randint(0, 23)
-        end_time = st_time + rd.randint(1, 3)
+        t = rd.randint(1, 21)
+        st_time = create_time(0, t)
+        end_time = create_time(t + 1, 23)
         day = rd.randint(1, 28)
         if day < 10:
             date_day = "0" + str(day)
         else:
             date_day = str(day)
         month = rd.randint(1, 12)
-        if day < 10:
+        if month < 10:
             date_month = "0" + str(month)
         else:
             date_month = str(month)
         cost = rd.randint(200, 1000)
-        #TODO order_id and total_sum
+
         Tables.PaymentsTable.add_new_payments(conn, customer_id, order_id, "2018-" + date_month + "-" + date_day,
-                                             st_time, end_time, cost)
+                                              st_time, end_time, cost)
 
 
 def populate_charges(conn, amount):
     for i in range(1, amount):
         car_id = rd.randint(1, Tables.get_number_of_rows(conn, Tables.CarsTable.TABLE_NAME))
         station_id = rd.randint(1, Tables.get_number_of_rows(conn, Tables.ChargingStationsTable.TABLE_NAME))
-        st_time = rd.randint(0, 23)
-        end_time = st_time + rd.randint(1, 3)
+        t = rd.randint(1, 21)
+        st_time = create_time(0, t)
+        end_time = create_time(t + 1, 23)
         day = rd.randint(1, 28)
         if day < 10:
             date_day = "0" + str(day)
         else:
             date_day = str(day)
         month = rd.randint(1, 12)
-        if day < 10:
+        if month < 10:
             date_month = "0" + str(month)
         else:
             date_month = str(month)
@@ -225,15 +228,16 @@ def populate_repairs(conn, amount):
         car_id = rd.randint(1, Tables.get_number_of_rows(conn, Tables.CarsTable.TABLE_NAME))
         wid = rd.randint(1, Tables.get_number_of_rows(conn, Tables.WorkshopsTable.TABLE_NAME))
         part_type = rd.randint(1, Tables.get_number_of_rows(conn, Tables.PartTypesTable.TABLE_NAME))
-        st_time = rd.randint(0, 23)
-        end_time = st_time + rd.randint(1, 3)
+        t = rd.randint(1, 21)
+        st_time = create_time(0, t)
+        end_time = create_time(t + 1, 23)
         day = rd.randint(1, 28)
         if day < 10:
             date_day = "0" + str(day)
         else:
             date_day = str(day)
         month = rd.randint(1, 12)
-        if day < 10:
+        if month < 10:
             date_month = "0" + str(month)
         else:
             date_month = str(month)
@@ -247,15 +251,16 @@ def populate_order_parts(conn, amount):
         provide_id = rd.randint(1, Tables.get_number_of_rows(conn, Tables.ProvidersTable.TABLE_NAME))
         wid = rd.randint(1, Tables.get_number_of_rows(conn, Tables.WorkshopsTable.TABLE_NAME))
         part_type = rd.randint(1, Tables.get_number_of_rows(conn, Tables.PartTypesTable.TABLE_NAME))
-        st_time = rd.randint(0, 23)
-        end_time = st_time + rd.randint(1, 3)
+        t = rd.randint(1, 21)
+        st_time = create_time(0, t)
+        end_time = create_time(t + 1, 23)
         day = rd.randint(1, 28)
         if day < 10:
             date_day = "0" + str(day)
         else:
             date_day = str(day)
         month = rd.randint(1, 12)
-        if day < 10:
+        if month < 10:
             date_month = "0" + str(month)
         else:
             date_month = str(month)
@@ -266,24 +271,21 @@ def populate_order_parts(conn, amount):
 
 connection = Tables.create_connection()
 
-# populate_car_types(connection)
-# populate_part_types(connection)
-# populate_plug_types(connection)
-# populate_charging_stations(connection, stations)
-# populate_customers(connection, customers)
-# populate_cars(connection, cars)
-# populate_providers(connection)
-# populate_workshops(connection, workshops)
-# populate_sockets(connection)
-# populate_part_provider(connection)
-# populate_part_workshop(connection)
-# populate_provider_workshop(connection)
-
-print(create_time(7,13)) # время с 07:00:00 до 12:59:59
-
-# Tables.PartCarTable.create_table(conn)
-# Tables.OrdersTable.create_table(conn)
-# Tables.PaymentsTable.create_table(conn)
-# Tables.ChargesTable.create_table(conn)
-# Tables.RepairsTable.create_table(conn)
-# Tables.OrderPartsTable.create_table(conn)
+populate_car_types(connection)
+populate_part_types(connection)
+populate_plug_types(connection)
+populate_charging_stations(connection, stations)
+populate_customers(connection, customers)
+populate_cars(connection, cars)
+populate_providers(connection)
+populate_workshops(connection, workshops)
+populate_sockets(connection)
+populate_part_provider(connection)
+populate_part_workshop(connection)
+populate_provider_workshop(connection)
+populate_orders(connection, 10)
+populate_car_parts(connection)
+populate_payments(connection, 10)
+populate_charges(connection, 10)
+populate_repairs(connection, 10)
+populate_order_parts(connection, 10)
