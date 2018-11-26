@@ -4,17 +4,21 @@ import Tables
 letters = string.ascii_uppercase
 car_types = ["Abarth", " AC", "Acura", "Alfa Romeo", "Almac", "Alternative Cars", "Amuza", "Anteros", " Buick", " BYD", " Mazzanti", " Ferrari"]
 plug_types = ["PT173", "PT1412", "PT229"]
-stations = 5
-customers = 8
-cars = 10
-stations_addresses = ["Veselay, 5", "Malaliskay, 66", "Romanovska, 9", "Tsuinchekovskay, 61"]
-colours = ["Red", "Green", "Black", "White", "Yellow", "Blue", "Brown", "Silver"]
-plate_numbers = ["AN353", "AN642"]
 part_types = ["Wheel Q564", "Washer L96", "Door Standard K312", "Door Lux KL311", "Engine LQP55A89b"]
-workshops_location = ["Meyora, 91", "Priroda, 8", "Red Square, 1", "Universitetskay, 108"]
-provider_name = ["Tinkoff Car Inc", "Yandex Taxi Details", "Musk Tesla Inc", "Google Repair"]
 streets = ["Veselaya", "Belorussian", "Tykaya", "Gogola", "Malaya", "Sinya", "Karla Marksa", "Gorkogo"]
-city = ["Misnk", "Moskva"]
+colours = ["Red", "Green", "Black", "White", "Yellow", "Blue", "Brown", "Silver"]
+provider_name = ["Tinkoff Car Inc", "Yandex Taxi Details", "Musk Tesla Inc", "Google Repair"]
+stations = 5
+customers = 10
+cars = 10
+workshops = 3
+plate_numbers = ["AN353", "AN642"]
+
+# stations_addresses = ["Veselay, 5", "Malaliskay, 66", "Romanovska, 9", "Tsuinchekovskay, 61"]
+# workshops_location = ["Meyora, 91", "Priroda, 8", "Red Square, 1", "Universitetskay, 108"]
+
+
+city = ["Misnk"]
 name = ["Bob", "Anna"]
 
 
@@ -68,14 +72,50 @@ def populate_providers(conn):
         Tables.insert(conn, Tables.ProvidersTable.TABLE_NAME,
                       "NULL, '" + provider_name[i] + "', '" + l + "', '" + ph +"'")
 
+def populate_workshops(conn, amount):
+    for i in range(amount):
+        l = create_address()
+        open = str(rd.randint(8,11))
+        close = str(rd.randint(19,21))
+        Tables.insert(conn, Tables.WorkshopsTable.TABLE_NAME,
+                      "NULL, '" +l + "', '" + open + "', '" + close+ "'")
+
+def populate_sockets(conn):
+    for i in range(1,stations+1):
+        for j in range(1, len(plug_types)+1):
+            Tables.insert(conn, Tables.SocketsTable.TABLE_NAME,
+                          "NULL, '" + str(j) + "', '" + str(i) + "'")
+
+def populate_part_provider(conn):
+    for i in range(1,len(part_types)+1):
+        for j in range(1, len(provider_name)+1):
+            cost = rd.randint(100,1000)
+            Tables.insert(conn, Tables.PartProviderTable.TABLE_NAME,
+                          "'" + str(i) + "', '" + str(j) + "', '" + str(cost) + "'")
+def populate_part_workshop(conn):
+    for i in range(1, len(part_types) + 1):
+        for j in range(1, workshops + 1):
+            cost = rd.randint(1, 20)
+            Tables.insert(conn, Tables.PartWorkshopTable.TABLE_NAME,
+                          "'" + str(i) + "', '" + str(j) + "', '" + str(cost) + "'")
+def populate_provider_workshop(conn):
+    for i in range(1, len(provider_name) + 1):
+        for j in range(1, workshops + 1):
+            Tables.insert(conn, Tables.ProviderWorkshopTable.TABLE_NAME,
+                          "'" + str(i) + "', '" + str(j) + "'")
+
+
+
 conn = Tables.create_connection()
 # populate_car_types(conn)
 # populate_part_types(conn)
 # populate_plug_types(conn)
 # populate_charging_stations(conn, stations)
-#populate_customers(conn, customers)
+# populate_customers(conn, customers)
 # populate_cars(conn, cars)
-populate_providers(conn)
-print(str(Tables.get_number_of_rows(conn, Tables.ProvidersTable.TABLE_NAME)))
-
-
+# populate_providers(conn)
+# populate_workshops(conn,workshops)
+# populate_sockets(conn)
+# populate_part_provider(conn)
+# populate_part_workshop(conn)
+# populate_provider_workshop(conn)
