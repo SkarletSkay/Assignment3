@@ -42,15 +42,15 @@ def query2(input):
 def query3():
     c = conn.cursor()
     c.execute(
-        'SELECT DISTINCT car_id FROM Orders AS O WHERE (julianday("now") - O.date)<7.0 AND O.start_time>julianday("06:59:59") AND O.start_time<julianday("10:00:00")')
+        'SELECT round((COUNT( DISTINCT car_id)*1.0)/(SELECT COUNT(*) FROM Cars)*100,2) FROM Orders AS O WHERE (julianday("now") - O.date)<7.0 AND O.start_time>julianday("06:59:59") AND O.start_time<julianday("10:00:00")')
     all_rows = c.fetchall()
-    answer = 'Morning\tAfternoon\tEvening\n'+str(all_rows[0][0])+'\t'
+    answer = 'Morning\t\tAfternoon\t\tEvening\n'+str(all_rows[0][0])+'\t\t\t'
     c.execute(
-        'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7.0 AND O.start_time>julianday("11:59:59") AND O.start_time<julianday("14:00:00")')
+        'SELECT round((COUNT( DISTINCT car_id)*1.0)/(SELECT COUNT(*) FROM Cars)*100,2)FROM Orders AS O WHERE (julianday("now") - O.date)<7.0 AND O.start_time>julianday("11:59:59") AND O.start_time<julianday("14:00:00")')
     all_rows = c.fetchall()
-    answer += str(all_rows[0][0]) + '\t'
+    answer += str(all_rows[0][0]) + '\t\t\t'
     c.execute(
-        'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7.0 AND O.start_time>julianday("16:59:59") AND O.start_time<julianday("19:00:00")')
+        'SELECT round((COUNT( DISTINCT car_id)*1.0)/(SELECT COUNT(*) FROM Cars)*100,2) FROM Orders AS O WHERE (julianday("now") - O.date)<7.0 AND O.start_time>julianday("16:59:59") AND O.start_time<julianday("19:00:00")')
     all_rows = c.fetchall()
     answer += str(all_rows[0][0])
     answer3['text'] = answer
@@ -209,7 +209,7 @@ answer1 = Label(q1, text="  ")
 answer1.pack()
 
 # q2 frame input: date
-Label(q2, text='This is the result of querry 2!\nPlease enter input date').pack()
+Label(q2, text='Compute how many sockets were occupied each hour.\nPlease enter input date').pack()
 input2 = Entry(q2)
 input2.pack()
 Button(q2, text='Run query', command=lambda: query2(input2.get())).pack()
@@ -218,14 +218,14 @@ answer2 = Label(q2, text="")
 answer2.pack()
 
 # q3 frame no input
-Label(q3, text='This is the result of querry 3!').pack()
+Label(q3, text='Gather statistics for one week on \n how many cars are busy (% to the total amount of taxis)\n').pack()
 Button(q3, text='Run query', command=lambda: query3()).pack()
 Button(q3, text='Back to menu', command=lambda: raise_frame(initial)).pack()
 answer3 = Label(q3, text="")
 answer3.pack()
 
 # q4 frame
-Label(q4, text='This is the result of querry 4!').pack()
+Label(q4, text='Find duplicating payments\n').pack()
 Button(q4, text='Run query', command=lambda: query4()).pack()
 Button(q4, text='Back to menu', command=lambda: raise_frame(initial)).pack()
 answer4 = Label(q4, text="")
@@ -234,7 +234,7 @@ answer4.pack()
 # q5 frame
 input5= Entry(q5)
 input5.pack()
-Label(q5, text='This is the result of querry 5!').pack()
+Label(q5, text='Enter date to get statistics on \n Average distance and Average trip duration \n').pack()
 Button(q5, text='Run query', command=lambda: query5(input5.get())).pack()
 Button(q5, text='Back to menu', command=lambda: raise_frame(initial)).pack()
 answer5 = Label(q5, text="")
