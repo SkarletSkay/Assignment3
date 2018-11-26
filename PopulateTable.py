@@ -164,18 +164,17 @@ def populate_orders(conn, amount):
             date_day = "0" + str(day)
         else:
             date_day = str(day)
-        month = rd.randint(11, 11)
+        month = 11
         if month < 10:
             date_month = "0" + str(month)
         else:
             date_month = str(month)
-        cost = rd.randint(200, 1000)
         init_loc = create_address()
         dest = create_address()
         dist = rd.randint(50, 200)
 
         Tables.OrdersTable.add_new_order(conn, customer_id, car_id, "2018-" + date_month + "-" + date_day,
-                                         st_time, end_time, init_loc, dest, cost, dist)
+                                         st_time, end_time, init_loc, dest, dist)
 
 
 def populate_payments(conn, amount):
@@ -190,7 +189,7 @@ def populate_payments(conn, amount):
             date_day = "0" + str(day)
         else:
             date_day = str(day)
-        month = rd.randint(11, 11)
+        month = 11
         if month < 10:
             date_month = "0" + str(month)
         else:
@@ -213,7 +212,7 @@ def populate_charges(conn, amount):
             date_day = "0" + str(day)
         else:
             date_day = str(day)
-        month = rd.randint(11, 11)
+        month = 11
         if month < 10:
             date_month = "0" + str(month)
         else:
@@ -236,7 +235,7 @@ def populate_repairs(conn, amount):
             date_day = "0" + str(day)
         else:
             date_day = str(day)
-        month = rd.randint(11, 11)
+        month = 11
         if month < 10:
             date_month = "0" + str(month)
         else:
@@ -259,7 +258,7 @@ def populate_order_parts(conn, amount):
             date_day = "0" + str(day)
         else:
             date_day = str(day)
-        month = rd.randint(11, 11)
+        month = 11
         if month < 10:
             date_month = "0" + str(month)
         else:
@@ -283,9 +282,9 @@ populate_sockets(connection)
 populate_part_provider(connection)
 populate_part_workshop(connection)
 populate_provider_workshop(connection)
-populate_orders(connection, 10)
+populate_orders(connection, 50)
 populate_car_parts(connection)
-populate_payments(connection, 10)
-populate_charges(connection, 10)
-populate_repairs(connection, 10)
-populate_order_parts(connection, 10)
+populate_payments(connection, 50)
+populate_charges(connection, 50)
+populate_repairs(connection, 50)
+populate_order_parts(connection, 50)

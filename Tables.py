@@ -338,7 +338,6 @@ class OrdersTable:
                      OrdersTable.END_TIME_COLUMN + " REAL, " +
                      OrdersTable.INIT_LOCATION_COLUMN + " TEXT, " +
                      OrdersTable.DESTINATION_COLUMN + " TEXT, " +
-                     OrdersTable.COST_COLUMN + " INTEGER, " +
                      OrdersTable.DISTANCE_COLUMN + " INTEGER," +
                      " FOREIGN KEY (" + OrdersTable.CUSTOMER_ID_COLUMN +
                      ") REFERENCES " + CustomersTable.TABLE_NAME + "(" + CustomersTable.ID_COLUMN + ")," +
@@ -347,12 +346,11 @@ class OrdersTable:
                      )
 
     @staticmethod 
-    def add_new_order(connection, customer_id, car_id, date, start_time, end_time, init_location, destination,
-                      cost, distance):
+    def add_new_order(connection, customer_id, car_id, date, start_time, end_time, init_location, destination, distance):
         insert(connection, OrdersTable.TABLE_NAME,
                "NULL," + str(customer_id) + ", " + str(car_id) +
                ", julianday('" + date + "'), julianday('" + start_time + "'), julianday('" + end_time + "'), '" +
-               init_location + "', '" + destination + "', " + str(cost) + ", " + str(distance))
+               init_location + "', '" + destination + "', " + str(distance))
 
 
 class PaymentsTable:
