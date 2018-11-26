@@ -33,7 +33,7 @@ class CarTypesTable:
     ID_COLUMN = "car_type_id"
     CAR_TYPE_COLUMN = "car_type"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " + self.CAR_TYPE_COLUMN + " TEXT")
 
@@ -46,7 +46,7 @@ class PlugTypesTable:
     ID_COLUMN = "plug_type_id"
     PLUG_TYPE_COLUMN = "plug_type"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " + self.PLUG_TYPE_COLUMN + " TEXT")
 
@@ -59,7 +59,7 @@ class PartTypesTable:
     ID_COLUMN = "part_type_id"
     PART_TYPE_COLUMN = "part_type"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " + self.PART_TYPE_COLUMN + " TEXT")
 
@@ -72,7 +72,7 @@ class PartCarTable:
     PART_TYPE_ID_COLUMN = "part_type_id"
     CAR_TYPE_ID_COLUMN = "car_type_id"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.PART_TYPE_ID_COLUMN + " INTEGER, " + self.CAR_TYPE_ID_COLUMN + " INTEGER," +
                      " FOREIGN KEY (" + self.PART_TYPE_ID_COLUMN +
@@ -91,7 +91,7 @@ class PartProviderTable:
     PROVIDER_ID_COLUMN = "provider_id"
     COST_COLUMN = "cost"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.PART_TYPE_ID_COLUMN + " INTEGER, " +
                      self.PROVIDER_ID_COLUMN + " INTEGER, " +
@@ -112,7 +112,7 @@ class PartWorkshopTable:
     WORKSHOP_ID_COLUMN = "workshop_id"
     QUANTITY_COLUMN = "quantity"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.PART_TYPE_ID_COLUMN + " INTEGER, " +
                      self.WORKSHOP_ID_COLUMN + " INTEGER, " +
@@ -132,7 +132,7 @@ class ProviderWorkshopTable:
     PROVIDER_ID_COLUMN = "provider_id"
     WORKSHOP_ID_COLUMN = "workshop_id"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.PROVIDER_ID_COLUMN + " INTEGER, " +
                      self.WORKSHOP_ID_COLUMN + " INTEGER," +
@@ -151,7 +151,7 @@ class ChargingStationsTable:
     ID_COLUMN = "uid"
     LOCATION_COLUMN = "location"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
                      self.LOCATION_COLUMN + " TEXT")
@@ -168,7 +168,7 @@ class ProvidersTable:
     LOCATION_COLUMN = "location"
     PHONE_COLUMN = "phone_column"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
                      self.NAME_COLUMN + " TEXT, " +
@@ -187,7 +187,7 @@ class WorkshopsTable:
     OPEN_TIME_COLUMN = "open_time_column"
     CLOSE_TIME_COLUMN = "close_time_column"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
                      self.LOCATION_COLUMN + " TEXT, " +
@@ -210,7 +210,7 @@ class CarsTable:
     COLOUR_COLUMN = "colour"
     PLATE_NUMBER_COLUMN = "plate_number"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
                      self.PLUG_TYPE_ID_COLUMN + " INTEGER, " +
@@ -233,7 +233,7 @@ class SocketsTable:
     PLUG_TYPE_ID_COLUMN = "plug_type_id"
     CHARGING_STATION_ID = "uid"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
                      self.PLUG_TYPE_ID_COLUMN + " INTEGER, " +
@@ -259,7 +259,7 @@ class CustomersTable:
     ZIP_COLUMN = "zip_code"
     PHONE_COLUMN = "phone_number"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
                      self.NAME_COLUMN + " TEXT, " +
@@ -289,7 +289,7 @@ class OrdersTable:
     COST_COLUMN = "cost"
     DISTANCE_COLUMN = "distance"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
                      self.CUSTOMER_ID_COLUMN + " INTEGER, " +
@@ -324,7 +324,7 @@ class PaymentsTable:
     END_TIME_COLUMN = "end_time"
     TOTAL_SUM_COLUMN = "total_sum"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
                      self.CUSTOMER_ID_COLUMN + " INTEGER, " +
@@ -354,7 +354,7 @@ class ChargesTable:
     END_TIME_COLUMN = "end_time"
     COST_COLUMN = "cost"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
                      self.CAR_ID_COLUMN + " INTEGER, " +
@@ -385,7 +385,7 @@ class RepairsTable:
     END_TIME_COLUMN = "end_time"
     COST_COLUMN = "cost"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
                      self.CAR_ID_COLUMN + " INTEGER, " +
@@ -420,7 +420,7 @@ class OrderPartsTable:
     END_TIME_COLUMN = "end_time"
     AMOUNT_COLUMN = "amount"
 
-    def __init__(self, connection):
+    def create_table(self, connection):
         create_table(connection, self.TABLE_NAME,
                      self.ID_COLUMN + " INTEGER PRIMARY KEY, " +
                      self.PROVIDER_ID_COLUMN + " INTEGER, " +
