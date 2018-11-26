@@ -1,5 +1,6 @@
 from tkinter import *
 import Tables
+import sqlite3 as sql
 
 conn = Tables.create_connection()
 
@@ -15,7 +16,7 @@ def raise_frame(frame):
 
 def query1():
     c = conn.cursor()
-    c.execute('SELECT car_id, colour, plate_number FROM Cars AS C WHERE C.colour="red" AND C.plate_number LIKE "AN%"')
+    c.execute('SELECT C.car_id, colour, plate_number FROM Orders AS O, Cars AS C WHERE C.colour="red" AND C.plate_number LIKE "AN%" AND O.car_id = C.car_id')
     all_rows = c.fetchall()
     answer = 'car_id\tcolour\tplate_number\n'
     for row in all_rows:
@@ -26,7 +27,16 @@ def query1():
 
 
 def query2(input):
-    answer2['text'] = input
+    c = conn.cursor()
+    c.execute(
+        'SELECT start_time, count(*) FROM Charges AS C WHERE date = julianday("' + input + '") GROUP BY start_time')
+    all_rows = c.fetchall()
+    answer = 'Hours\tPlugs Accupied\n'
+    for row in all_rows:
+        for item in row:
+            answer += str(item) + '\t'
+        answer += "\n"
+    answer2['text'] = answer
 
 
 def query3():
@@ -34,31 +44,94 @@ def query3():
 
 
 def query4():
-    answer4['text'] = 'to be done'
+    c = conn.cursor()
+    c.execute(
+        'SELECT T.customer_id, C.full_name, T.order_id FROM (SELECT order_id, customer_id, COUNT(*) AS amount FROM Payments GROUP BY customer_id, order_id) AS T, Customers AS C WHERE T.amount>1 AND C.customer_id = T.customer_id')
+    all_rows = c.fetchall()
+    answer = 'Customer ID\tFull name\tOrder ID\n'
+    for row in all_rows:
+        for item in row:
+            answer += str(item) + '\t'
+        answer += "\n"
+    answer4['text'] = answer
 
 
-def query5():
-    answer5['text'] = 'to be done'
+def query5(input):
+    c = conn.cursor()
+    c.execute(
+        'SELECT car_id,AVG(distance), AVG((end_time-start_time)*86400) FROM Orders AS O WHERE O.date = julianday("' + input + '") GROUP BY car_id')
+    all_rows = c.fetchall()
+    answer = 'Car ID\tAverage Distance\tAverage time\n'
+    for row in all_rows:
+        for item in row:
+            answer += str(item) + '\t'
+        answer += "\n"
+    answer5['text'] = answer
 
 
 def query6():
-    answer6['text'] = 'to be done'
+    c = conn.cursor()
+    c.execute(
+        'SELECT FROM WHERE ')
+    all_rows = c.fetchall()
+    answer = 'Customer ID\tFull name\tOrder ID\n'
+    for row in all_rows:
+        for item in row:
+            answer += str(item) + '\t'
+        answer += "\n"
+    answer6['text'] = answer
 
 
 def query7():
-    answer7['text'] = 'to be done'
+    c = conn.cursor()
+    c.execute(
+        'SELECT FROM WHERE ')
+    all_rows = c.fetchall()
+    answer = 'Customer ID\tFull name\tOrder ID\n'
+    for row in all_rows:
+        for item in row:
+            answer += str(item) + '\t'
+        answer += "\n"
+    answer7['text'] = answer
 
 
 def query8():
-    answer8['text'] = 'to be done'
+    c = conn.cursor()
+    c.execute(
+        'SELECT FROM WHERE ')
+    all_rows = c.fetchall()
+    answer = 'Customer ID\tFull name\tOrder ID\n'
+    for row in all_rows:
+        for item in row:
+            answer += str(item) + '\t'
+        answer += "\n"
+    answer8['text'] = answer
 
 
 def query9():
-    answer9['text'] = 'to be done'
+    c = conn.cursor()
+    c.execute(
+        'SELECT FROM WHERE ')
+    all_rows = c.fetchall()
+    answer = 'Customer ID\tFull name\tOrder ID\n'
+    for row in all_rows:
+        for item in row:
+            answer += str(item) + '\t'
+        answer += "\n"
+    answer9['text'] = answer
 
 
 def query10():
-    answer10['text'] = 'to be done'
+    c = conn.cursor()
+    c.execute(
+        'SELECT FROM WHERE ')
+    all_rows = c.fetchall()
+    answer = 'Customer ID\tFull name\tOrder ID\n'
+    for row in all_rows:
+        for item in row:
+            answer += str(item) + '\t'
+        answer += "\n"
+    answer10['text'] = answer
 
 
 root = Tk()
@@ -91,7 +164,8 @@ Button(initial, text='Go to query 10', command=lambda: raise_frame(q10)).pack()
 Button(initial, text='Exit', command=lambda: Quit()).pack()
 
 # q1 frame no input
-Label(q1, text='A customer claims she forgot her bag in a car and asks to help.\nShe was using cars several times this day, but she believes the right car was red and its plate starts with “AN”. ').pack()
+Label(q1,
+      text='A customer claims she forgot her bag in a car and asks to help.\nShe was using cars several times this day, but she believes the right car was red and its plate starts with “AN”. ').pack()
 Button(q1, text='Run query', command=lambda: query1()).pack()
 Button(q1, text='Back to menu', command=lambda: raise_frame(initial)).pack()
 answer1 = Label(q1, text="  ")
@@ -121,8 +195,10 @@ answer4 = Label(q4, text="")
 answer4.pack()
 
 # q5 frame
+input5= Entry(q5)
+input5.pack()
 Label(q5, text='This is the result of querry 5!').pack()
-Button(q5, text='Run query', command=lambda: query5()).pack()
+Button(q5, text='Run query', command=lambda: query5(input5.get())).pack()
 Button(q5, text='Back to menu', command=lambda: raise_frame(initial)).pack()
 answer5 = Label(q5, text="")
 answer5.pack()
