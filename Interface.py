@@ -16,10 +16,9 @@ def raise_frame(frame):
 
 def query1():
     c = conn.cursor()
-    c.execute('SELECT C.car_id, C.colour, C.plate_number FROM Orders AS O, Cars AS C WHERE C.colour="Red" AND C.plate_number LIKE "AN%" AND O.car_id = C.car_id')
+    c.execute('SELECT DISTINCT C.car_id, C.colour, C.plate_number FROM Orders AS O, Cars AS C  WHERE C.colour="Red" AND C.plate_number LIKE "AN%" AND O.car_id = C.car_id ')
     all_rows = c.fetchall()
-    print(all_rows)
-    answer = 'car_id\tcolour\tplate_number\n'
+    answer = 'car_id\tcolour\tplate_number\torder_id\tname\n'
     for row in all_rows:
         for item in row:
             answer += str(item) + '\t'
@@ -30,7 +29,7 @@ def query1():
 def query2(input):
     c = conn.cursor()
     c.execute(
-        'SELECT start_time, count(*) FROM Charges AS C WHERE date = julianday("' + input + '") GROUP BY start_time')
+        'SELECT time(start_time), count(*) FROM Charges AS C WHERE date = julianday("' + input + '") GROUP BY start_time')
     all_rows = c.fetchall()
     answer = 'Hours\tPlugs Accupied\n'
     for row in all_rows:
@@ -132,7 +131,7 @@ def query8():
     c = conn.cursor()
     c.execute('SELECT customer_id, COUNT(customer_id) FROM Orders AS O, Charges AS CH WHERE O.date = CH.date AND O.car_id = CH.car_id AND (julianday("now") - O.date)<31')
     all_rows = c.fetchall()
-    answer = 'Customer ID\t\tNumber of Carges\n'
+    answer = 'Customer ID\t\tNumber of Charges\n'
     for row in all_rows:
         for item in row:
             answer += str(item) + '\t\t'
