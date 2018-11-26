@@ -241,14 +241,14 @@ answer5 = Label(q5, text="")
 answer5.pack()
 
 # q6 frame
-Label(q6, text='This is the result of querry 6!').pack()
+Label(q6, text='Compute top-3 most popular pick-up locations\n').pack()
 Button(q6, text='Run query', command=lambda: query6()).pack()
 Button(q6, text='Back to menu', command=lambda: raise_frame(initial)).pack()
 answer6 = Label(q6, text="")
 answer6.pack()
 
 # q7 frame
-Label(q7, text='This is the result of querry 7!').pack()
+Label(q7, text='Find 10% of cars which take least amount of\n orders for the last 3 months\n').pack()
 Button(q7, text='Run query', command=lambda: query7()).pack()
 Button(q7, text='Back to menu', command=lambda: raise_frame(initial)).pack()
 answer7 = Label(q7, text="")
@@ -262,14 +262,14 @@ answer8 = Label(q8, text="")
 answer8.pack()
 
 # q9 frame
-Label(q9, text='This is the result of querry 9!').pack()
+Label(q9, text='Find parts which are used the most\n every week by every workshop\n').pack()
 Button(q9, text='Run query', command=lambda: query9()).pack()
 Button(q9, text='Back to menu', command=lambda: raise_frame(initial)).pack()
 answer9 = Label(q9, text="")
 answer9.pack()
 
 # q10 frame
-Label(q10, text='This is the result of querry 10!').pack()
+Label(q10, text='Find car type which had the highest average (per day) cost of\n repairs andcharging (combined)\n').pack()
 Button(q10, text='Run query', command=lambda: query10()).pack()
 Button(q10, text='Back to menu', command=lambda: raise_frame(initial)).pack()
 answer10 = Label(q10, text="")
