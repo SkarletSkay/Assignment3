@@ -1,0 +1,12 @@
+car_types = ["Abarth", " AC", "Acura", "Alfa Romeo", "Almac", "Alternative Cars", "Amuza", "Anteros", " Buick", " BYD", " Mazzanti", " Ferrari"]
+plug_types = ["PT173", "PT1412", "PT229"]
+stations_addresses = ["Veselay, 5", "Malaliskay, 66", "Romanovska, 9", "Tsuinchekovskay, 61"]
+colours = ["Red", "Green", "Black", "White", "Yellow", "Blue", "Brown", "Silver"]
+plate_numbers = ["AN353", "AN642"]
+part_types = ["Wheel Q564", "Washer L96", "Door Standard K312", "Door Lux KL311", "Engine LQP55A89b"]
+workshops_location = ["Meyora, 91", "Priroda, 8", "Red Square, 1", "Universitetskay, 108"]
+provider_name = ["Tinkoff Car Inc", "Yandex Taxi Details", "Musk Tesla Inc", "Google Repair"]
+streets = ["Veselaya", "Belorussian", "Tykaya", "Gogola", "Malaya", "Sinya", "Karla Marksa", "Gorkogo"]
+city = ["Misnk"]
+name = ["Bob", "Anna"]
+
