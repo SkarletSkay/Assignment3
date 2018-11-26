@@ -128,13 +128,13 @@ def query7():
 
 def query8():
     c = conn.cursor()
-    c.execute('SELECT customer_id, COUNT(customer_id) FROM Orders AS O, Charges AS CH WHERE O.date = CH.date AND O.car_id = CH.car_id AND (julianday("now") - O.date)<31')
+    c.execute('SELECT customer_id, COUNT(customer_id) FROM Orders AS O, Charges AS CH  WHERE O.date = CH.date AND O.car_id = CH.car_id AND (julianday("now") - O.date)<31 GROUP by customer_id')
     all_rows = c.fetchall()
-    answer = 'Customer ID\t\tNumber of Charges\n'
+    answer = 'Customer ID\t\tNumber of Charges\t'
     for row in all_rows:
         for item in row:
             answer += str(item) + '\t\t'
-        answer += "\n"
+        answer += "\n\t"
     answer8['text'] = answer
 
 
