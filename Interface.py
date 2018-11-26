@@ -29,7 +29,7 @@ def query1():
 def query2(input):
     c = conn.cursor()
     c.execute(
-        'SELECT time(start_time), count(*) FROM Charges AS C WHERE date = julianday("' + input + '") GROUP BY start_time')
+        'SELECT CAST ((start_time-julianday("00:00:00"))*24 AS INT), count(*) FROM Charges AS C WHERE date = julianday("' + input + '") GROUP BY CAST ((start_time-julianday("00:00:00"))*24 AS INT)')
     all_rows = c.fetchall()
     answer = 'Hours\tPlugs Accupied\n'
     for row in all_rows:
