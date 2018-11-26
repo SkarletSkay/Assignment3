@@ -74,11 +74,9 @@ def query5(input):
     c.execute(
         'SELECT car_id,AVG(distance), AVG((end_time-start_time)*86400) FROM Orders AS O WHERE O.date = julianday("' + input + '") GROUP BY car_id')
     all_rows = c.fetchall()
-    answer = 'Car ID\t\tAverage Distance\t\tAverage time\n\t\t'
+    answer = 'Car ID\t\tAverage Distance\t\tAverage time\n'
     for row in all_rows:
-        for item in row:
-            answer += str(item) + '\t\t'
-        answer += "\n\t\t"
+            answer += str(row[0])+'\t\t' + str(round(row[1])) +'\t\t' + str(round(row[2])) + '\n'
     answer5['text'] = answer
 
 
