@@ -48,7 +48,7 @@ def query3():
     c.execute(
         'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7 AND O.start_time>julianday("11:59:59") AND O.end_time<julianday("14:00:00")')
     all_rows = c.fetchall()
-    answer += str(all_rows[0][0])+ '\t'
+    answer += str(all_rows[0][0]) + '\t'
     c.execute(
         'SELECT COUNT( DISTINCT car_id) FROM Orders AS O WHERE (julianday("now") - O.date)<7 AND O.start_time>julianday("16:59:59") AND O.end_time<julianday("19:00:00")')
     all_rows = c.fetchall()

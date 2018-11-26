@@ -24,6 +24,18 @@ cities = ["Kazan", "Moscow"]
 names = ["Bob", "Anna", "Gretta", "Julia", "Elena", "Eliza"]
 surnames = ["Smith", "Black", "Stone", "White", "Brown", "Perry"]
 
+def create_time(start, end):
+    hh = rd.randint(start, end-1)
+    mm = rd.randint(0,59)
+    ss = rd.randint(0,59)
+    result = ""
+    for item in (hh, mm, ss):
+        if item > 9:
+            result += str(item)+":"
+        else:
+            result += "0"+str(item)+":"
+    return result[:len(result)-1]
+
 
 def create_address():
     a = rd.randint(0, len(streets)-1)
@@ -230,22 +242,24 @@ def populate_repairs(conn, amount):
 
 
 def populate_order_parts(conn):
+    pass
 
 connection = Tables.create_connection()
 
-populate_car_types(connection)
-populate_part_types(connection)
-populate_plug_types(connection)
-populate_charging_stations(connection, stations)
-populate_customers(connection, customers)
-populate_cars(connection, cars)
-populate_providers(connection)
-populate_workshops(connection, workshops)
-populate_sockets(connection)
-populate_part_provider(connection)
-populate_part_workshop(connection)
-populate_provider_workshop(connection)
+# populate_car_types(connection)
+# populate_part_types(connection)
+# populate_plug_types(connection)
+# populate_charging_stations(connection, stations)
+# populate_customers(connection, customers)
+# populate_cars(connection, cars)
+# populate_providers(connection)
+# populate_workshops(connection, workshops)
+# populate_sockets(connection)
+# populate_part_provider(connection)
+# populate_part_workshop(connection)
+# populate_provider_workshop(connection)
 
+print(create_time(7,13)) # время с 07:00:00 до 12:59:59
 
 # Tables.PartCarTable.create_table(conn)
 # Tables.OrdersTable.create_table(conn)
