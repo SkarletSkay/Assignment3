@@ -85,9 +85,27 @@ def query5(input):
 def query6():
     c = conn.cursor()
     c.execute(
-        'SELECT init_location, COUNT(init_location) FROM Orders GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
+        'SELECT init_location, COUNT(init_location) FROM Orders AS O WHERE O.start_time>julianday("06:59:59") AND O.end_time<julianday("10:00:00") GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
     all_rows = c.fetchall()
-    answer = 'Location\t\tNumber of orders\n'
+    answer = 'Top 3 pick up locations in the Morning (7AM-10AM):\nLocation\t\tNumber of orders\n'
+    for row in all_rows:
+        for item in row:
+            answer += str(item) + '\t\t'
+        answer += "\n"
+
+    c.execute(
+        'SELECT init_location, COUNT(init_location) FROM Orders AS O WHERE O.start_time>julianday("11:59:59") AND O.end_time<julianday("14:00:00") GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
+    all_rows = c.fetchall()
+    answer += '\nTop 3 pick up locations in the Afternoon (12PM-2PM):\nLocation\t\tNumber of orders\n'
+    for row in all_rows:
+        for item in row:
+            answer += str(item) + '\t\t'
+        answer += "\n"
+
+    c.execute(
+        'SELECT init_location, COUNT(init_location) FROM Orders AS O WHERE O.start_time>julianday("16:59:59") AND O.end_time<julianday("19:00:00") GROUP BY init_location ORDER BY COUNT(init_location) DESC LIMIT 3 ')
+    all_rows = c.fetchall()
+    answer += '\nTop 3 pick up locations in the Evening (5PM-17PM):\nLocation\t\tNumber of orders\n'
     for row in all_rows:
         for item in row:
             answer += str(item) + '\t\t'
@@ -112,7 +130,7 @@ def query8():
     c = conn.cursor()
     c.execute('SELECT customer_id, COUNT(customer_id) FROM Orders AS O, Charges AS CH WHERE O.date = CH.date AND O.car_id = CH.car_id AND (julianday("now") - O.date)<31')
     all_rows = c.fetchall()
-    answer = 'Customer ID\t\tNUmber of Carges\n'
+    answer = 'Customer ID\t\tNumber of Carges\n'
     for row in all_rows:
         for item in row:
             answer += str(item) + '\t\t'
