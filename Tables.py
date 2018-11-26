@@ -122,7 +122,7 @@ class PartProviderTable:
 
     @staticmethod 
     def add_new_part_provider(connection, part_type, provider_type, cost):
-        insert(connection, PartProviderTable.TABLE_NAME, "NULL, '" + part_type + "', '" + provider_type + "', " + cost)
+        insert(connection, PartProviderTable.TABLE_NAME, str(part_type) + ", " + str(provider_type) + ", " + str(cost))
 
 
 class PartWorkshopTable:
@@ -168,7 +168,7 @@ class ProviderWorkshopTable:
 
     @staticmethod 
     def add_new_provider_workshop(connection, provider, workshop):
-        insert(connection, ProviderWorkshopTable.TABLE_NAME, "NULL, '" + provider + "', '" + workshop + "'")
+        insert(connection, ProviderWorkshopTable.TABLE_NAME, str(provider) + ", " + str(workshop))
 
 
 class ChargingStationsTable:
@@ -224,14 +224,14 @@ class WorkshopsTable:
                      WorkshopsTable.OPEN_TIME_COLUMN + " INTEGER, " +
                      WorkshopsTable.CLOSE_TIME_COLUMN + " INTEGER, " +
                      "CHECK (" + WorkshopsTable.OPEN_TIME_COLUMN + " >= 0 AND " +
-                     WorkshopsTable.OPEN_TIME_COLUMN + " < 23 AND " +
+                     WorkshopsTable.OPEN_TIME_COLUMN + " <= 23 AND " +
                      WorkshopsTable.CLOSE_TIME_COLUMN + " >= 0 AND " +
-                     WorkshopsTable.CLOSE_TIME_COLUMN + " < 23)")
+                     WorkshopsTable.CLOSE_TIME_COLUMN + " <= 23)")
 
     @staticmethod 
     def add_new_workshop(connection, location, open_time, close_time):
         insert(connection, WorkshopsTable.TABLE_NAME,
-               "NULL, '" + location + "', " + open_time + "', " + close_time)
+               "NULL, '" + location + "', " + str(open_time) + ", " + str(close_time))
 
 
 class CarsTable:
@@ -258,7 +258,7 @@ class CarsTable:
     @staticmethod 
     def add_new_car(connection, plug_type_id, car_type_id, colour, plate_number):
         insert(connection, CarsTable.TABLE_NAME,
-               "NULL, '" + plug_type_id + ", " + car_type_id + ", '" + colour + "', '" + plate_number)
+               "NULL, " + str(plug_type_id) + ", " + str(car_type_id) + ", '" + colour + "', '" + plate_number + "'")
 
 
 class SocketsTable:
@@ -281,7 +281,7 @@ class SocketsTable:
     @staticmethod 
     def add_new_socket(connection, plug_type_id, charging_station_id):
         insert(connection, SocketsTable.TABLE_NAME,
-               "NULL, '" + plug_type_id + "', '" + charging_station_id + "'")
+               "NULL, " + str(plug_type_id) + ", '" + str(charging_station_id) + "'")
 
 
 class CustomersTable:
@@ -310,8 +310,8 @@ class CustomersTable:
     @staticmethod 
     def add_new_customer(connection, name, username, email, country, city, zip_code, phone_number):
         insert(connection, CustomersTable.TABLE_NAME,
-               "'" + name + "', '" + username + "', '" + email + "', '" + country + "', '" + city + "', '" +
-               "', '" + zip_code + "', '" + phone_number)
+               "NULL, '" + name + "', '" + username + "', '" + email + "', '" + country + "', '" + city + "', '" +
+               str(zip_code) + "', '" + phone_number + "'")
 
 
 class OrdersTable:
