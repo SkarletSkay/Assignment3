@@ -24,10 +24,11 @@ cities = ["Kazan", "Moscow"]
 names = ["Bob", "Anna", "Gretta", "Julia", "Elena", "Eliza"]
 surnames = ["Smith", "Black", "Stone", "White", "Brown", "Perry"]
 
+
 def create_time(start, end):
     hh = rd.randint(start, end-1)
-    mm = rd.randint(0,59)
-    ss = rd.randint(0,59)
+    mm = rd.randint(0, 59)
+    ss = rd.randint(0, 59)
     result = ""
     for item in (hh, mm, ss):
         if item > 9:
@@ -241,8 +242,27 @@ def populate_repairs(conn, amount):
                                            st_time, end_time, cost)
 
 
-def populate_order_parts(conn):
-    pass
+def populate_order_parts(conn, amount):
+    for i in range(1, amount):
+        provide_id = rd.randint(1, Tables.get_number_of_rows(conn, Tables.ProvidersTable.TABLE_NAME))
+        wid = rd.randint(1, Tables.get_number_of_rows(conn, Tables.WorkshopsTable.TABLE_NAME))
+        part_type = rd.randint(1, Tables.get_number_of_rows(conn, Tables.PartTypesTable.TABLE_NAME))
+        st_time = rd.randint(0, 23)
+        end_time = st_time + rd.randint(1, 3)
+        day = rd.randint(1, 28)
+        if day < 10:
+            date_day = "0" + str(day)
+        else:
+            date_day = str(day)
+        month = rd.randint(1, 12)
+        if day < 10:
+            date_month = "0" + str(month)
+        else:
+            date_month = str(month)
+        am = rd.randint(1, 100)
+        Tables.OrderPartsTable.add_new_order_parts(conn, provide_id, wid, part_type,
+                                                   "2018-" + date_month + "-" + date_day, st_time, end_time, am)
+
 
 connection = Tables.create_connection()
 
