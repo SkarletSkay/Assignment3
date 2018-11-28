@@ -94,10 +94,14 @@ def query4():
     c.execute(
         'SELECT T.customer_id, C.full_name, T.order_id FROM (SELECT order_id, customer_id, COUNT(*) AS amount FROM Payments GROUP BY customer_id, order_id) AS T, Customers AS C WHERE T.amount>1 AND C.customer_id = T.customer_id')
     all_rows = c.fetchall()
-    for i in range(len(all_rows)):
-        answer4.append(Label(q4, text=all_rows[i][0]).grid(row = 5+i,column=0))
-        answer4.append(Label(q4, text=all_rows[i][1]).grid(row = 5+i,column=2))
-        answer4.append(Label(q4, text=all_rows[i][2]).grid(row = 5+i,column=4))
+    print(all_rows)
+    if len(all_rows) == 0:
+        answer4.append(Label(q4, text="No duplicated payments were indicated!").grid(row=5, column=0, columnspan=5, sticky="w e"))
+    else:
+        for i in range(len(all_rows)):
+            answer4.append(Label(q4, text=all_rows[i][0]).grid(row = 5+i,column=0))
+            answer4.append(Label(q4, text=all_rows[i][1]).grid(row = 5+i,column=2))
+            answer4.append(Label(q4, text=all_rows[i][2]).grid(row = 5+i,column=4))
 
 
 def query5(input):
